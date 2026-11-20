@@ -90,4 +90,37 @@ For the size benchmark, workers can reuse a JPEG XL payload for an identical arr
 
 Set the worker count, then press **Run the benchmark**. Each verified chunk is checkpointed next to the input, so an interrupted run can resume. The completed run opens from its `.full-v1.bench.json` cache. The totals include fill-only chunks. The histograms default to populated chunks and let you select a reference codec or include the fill-only chunks. **Save figures and measurement tables** exports a PDF, PNGs, CSVs and settings. The uncertainty scan can run separately.
 
+## Improvement experiments (CPU)
+
+Notebooks 04 to 06 test changes to SZ2 on five samples: Sentinel-2 Toulouse, Sentinel-2 Beauce,
+Sentinel-1 Toulouse, Sentinel-3 OLCI and a 512 × 512 crop of the 18 LST grids.
+Each notebook opens on its saved results in `reports/`. A button computes the missing results on all cores.
+Every measurement encodes, decodes and compares with the input.
+
+```sh
+uv run marimo edit notebooks/04_speed.py      # train every k wavefronts, smaller networks
+uv run marimo edit notebooks/05_learning.py   # Adam steps, learning rate, width, earlier bands, band order
+uv run marimo edit notebooks/06_two_pass.py   # train on the image first and send the weights
+```
+
+The experiments use three encoder options. The stream records them (format SZ3), so the decoder needs no extra input.
+With the default values the encoder writes the same SZ2 stream as before.
+
+| option | default | meaning |
+|---|---|---|
+| `train_every` | 1 | one training update for every k wavefronts, on all their pixels |
+| `steps` | 1 | Adam steps for each update. 0 freezes the model (no online training). |
+| `n_prev` | 2 | number of earlier bands that the network reads |
+
+Main results:
+
+- Online learning is worth 5 % to 28 % of the stream. Context from earlier bands is worth 4 % to 22 %.
+- Less frequent training is up to 2.5× faster, but it costs 1 % to 13 % in size.
+- `n_prev=3` makes the LST stack about 2 % smaller. More Adam steps make Sentinel-3 OLCI up to 1.7 % smaller.
+- A model trained on the whole image and then frozen is worse than online learning.
+  Two passes followed by online learning make the pixel stream 0.3 % to 5 % smaller.
+  The weights (14 KB) pay for themselves only on large images.
+
+## Limits
+
 The codec requires matching floating-point computations on both sides. Use the same CPU type and PyTorch version for encoding and decoding. The input grids must contain integers.

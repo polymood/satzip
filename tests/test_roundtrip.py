@@ -37,6 +37,7 @@ def _(
     test_roundtrip_fill,
     test_roundtrip_prior_and_constant_band,
     test_sparse_wide_palette_preserves_endianness_and_fill,
+    test_sz3_options_roundtrip,
     test_wavefronts_cover_each_pixel_once_after_its_neighbours,
 ):
     _checks = {
@@ -44,6 +45,7 @@ def _(
         "Pretrained prior and constant band": test_roundtrip_prior_and_constant_band,
         "Causal wavefront order": test_wavefronts_cover_each_pixel_once_after_its_neighbours,
         "Shared, differing and empty fill masks": test_roundtrip_fill,
+        "SZ3 options: batched training, steps, previous bands": test_sz3_options_roundtrip,
         "Original SZ1 byte stream": test_decode_original_sz1_stream,
         "SZ1 prior selection": test_old_prior_selects_sz1,
         "Wide integer palette and byte order": test_sparse_wide_palette_preserves_endianness_and_fill,
@@ -115,6 +117,20 @@ def test_roundtrip_fill():
     assert np.array_equal(satzip.decompress(data), img)
     empty = np.full((2, 9, 9), -32768, np.int16)
     assert np.array_equal(satzip.decompress(satzip.compress(empty, fill=-32768)[0]), empty)
+
+
+@app.function
+def test_sz3_options_roundtrip():
+    img = sample_image(4).astype(np.int16)
+    img[:, 3:9, 5:12] = -32768
+    assert satzip.compress(img)[0][:3] == b"SZ2"  # default settings keep the SZ2 format
+    for opts in ({"train_every": 4}, {"steps": 2}, {"n_prev": 1}, {"n_prev": 3, "train_every": 3, "steps": 2}):
+        data, _ = satzip.compress(img, fill=-32768, **opts)
+        assert data[:3] == b"SZ3", opts
+        assert np.array_equal(satzip.decompress(data), img), opts
+    prior = satzip.pretrain([sample_image(5)], train_every=2, n_prev=3)
+    data, _ = satzip.compress(img, prior=prior, fill=-32768, train_every=2, n_prev=3)
+    assert np.array_equal(satzip.decompress(data, prior=prior), img)
 
 
 @app.function

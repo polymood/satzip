@@ -1,0 +1,1294 @@
+[
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "n_prev": 0
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 0,
+   "bytes": 1225939,
+   "side bytes": 0,
+   "bpp": 9.353172302246094,
+   "t_enc": 10.46613256099954,
+   "t_dec": 13.14428919999773,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "bytes": 1156784,
+   "side bytes": 0,
+   "bpp": 8.8255615234375,
+   "t_enc": 11.349137184999563,
+   "t_dec": 12.48394198599999,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "order": "greedy"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "greedy",
+   "bytes": 1158784,
+   "side bytes": 4,
+   "bpp": 8.8408203125,
+   "t_enc": 11.33787947500241,
+   "t_dec": 12.540853817001334,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "n_prev": 1
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 1,
+   "bytes": 1161019,
+   "side bytes": 0,
+   "bpp": 8.857872009277344,
+   "t_enc": 11.414447545001167,
+   "t_dec": 12.581277958997816,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "lr": 0.001
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.001,
+   "bytes": 1160108,
+   "side bytes": 0,
+   "bpp": 8.850921630859375,
+   "t_enc": 11.536490015998424,
+   "t_dec": 12.611286041999847,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "hidden": 32
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 1158548,
+   "side bytes": 0,
+   "bpp": 8.839019775390625,
+   "t_enc": 10.844984162999026,
+   "t_dec": 13.454813488999207,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "lr": 0.006
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.006,
+   "bytes": 1158712,
+   "side bytes": 0,
+   "bpp": 8.84027099609375,
+   "t_enc": 11.777410015998612,
+   "t_dec": 14.094297797000763,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "bytes": 827577,
+   "side bytes": 0,
+   "bpp": 6.313911437988281,
+   "t_enc": 11.916116543998214,
+   "t_dec": 14.530079112999374,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "lr": 0.01
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.01,
+   "bytes": 1161500,
+   "side bytes": 0,
+   "bpp": 8.861541748046875,
+   "t_enc": 11.93783683699803,
+   "t_dec": 14.524325045000296,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "hidden": 128
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "bytes": 1156444,
+   "side bytes": 0,
+   "bpp": 8.822967529296875,
+   "t_enc": 13.724224498000694,
+   "t_dec": 14.414722107998386,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "n_prev": 3
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 3,
+   "bytes": 1155779,
+   "side bytes": 0,
+   "bpp": 8.817893981933594,
+   "t_enc": 13.26942185399821,
+   "t_dec": 14.897704805000103,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "bytes": 401491,
+   "side bytes": 0,
+   "bpp": 6.1262664794921875,
+   "t_enc": 5.533089563999965,
+   "t_dec": 5.4867050080029,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "steps": 2
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 2,
+   "bytes": 826232,
+   "side bytes": 0,
+   "bpp": 6.30364990234375,
+   "t_enc": 21.298919665998255,
+   "t_dec": 22.36187822300053,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "steps": 2
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 2,
+   "bytes": 1156887,
+   "side bytes": 0,
+   "bpp": 8.826347351074219,
+   "t_enc": 21.85934921399894,
+   "t_dec": 23.417841210000915,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "hidden": 32
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 829325,
+   "side bytes": 0,
+   "bpp": 6.327247619628906,
+   "t_enc": 11.3911393840026,
+   "t_dec": 11.163047964000725,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "n_prev": 0
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 0,
+   "bytes": 863024,
+   "side bytes": 0,
+   "bpp": 6.5843505859375,
+   "t_enc": 11.106808507000096,
+   "t_dec": 10.307845802999509,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "lr": 0.001
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.001,
+   "bytes": 830725,
+   "side bytes": 0,
+   "bpp": 6.337928771972656,
+   "t_enc": 12.1572210719969,
+   "t_dec": 11.758164735998434,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "lr": 0.006
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.006,
+   "bytes": 828845,
+   "side bytes": 0,
+   "bpp": 6.323585510253906,
+   "t_enc": 12.132557244000054,
+   "t_dec": 11.898450164997485,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "lr": 0.01
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.01,
+   "bytes": 831061,
+   "side bytes": 0,
+   "bpp": 6.340492248535156,
+   "t_enc": 13.907425505996798,
+   "t_dec": 13.95951161099947,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "steps": 3
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 3,
+   "bytes": 1157971,
+   "side bytes": 0,
+   "bpp": 8.834617614746094,
+   "t_enc": 27.493087306000234,
+   "t_dec": 26.399353307002457,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "steps": 3
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 3,
+   "bytes": 826756,
+   "side bytes": 0,
+   "bpp": 6.307647705078125,
+   "t_enc": 27.151434493000124,
+   "t_dec": 26.877673476999917,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "n_prev": 1
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 1,
+   "bytes": 832376,
+   "side bytes": 0,
+   "bpp": 6.35052490234375,
+   "t_enc": 13.930387051001162,
+   "t_dec": 14.067060572000628,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "order": "greedy"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "greedy",
+   "bytes": 828265,
+   "side bytes": 4,
+   "bpp": 6.319160461425781,
+   "t_enc": 14.100265332999697,
+   "t_dec": 13.64171637400068,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "n_prev": 3
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 3,
+   "bytes": 827840,
+   "side bytes": 0,
+   "bpp": 6.31591796875,
+   "t_enc": 15.934156452996831,
+   "t_dec": 15.521272255002259,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse",
+   "lr": 0.001
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.001,
+   "bytes": 401811,
+   "side bytes": 0,
+   "bpp": 6.1311492919921875,
+   "t_enc": 5.753757366001082,
+   "t_dec": 5.562717837998207,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse",
+   "hidden": 32
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 401431,
+   "side bytes": 0,
+   "bpp": 6.1253509521484375,
+   "t_enc": 5.109037687998352,
+   "t_dec": 4.9769851679993735,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "hidden": 128
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "bytes": 827473,
+   "side bytes": 0,
+   "bpp": 6.313117980957031,
+   "t_enc": 17.29534300100204,
+   "t_dec": 16.524860468998668,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse",
+   "lr": 0.006
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.006,
+   "bytes": 401607,
+   "side bytes": 0,
+   "bpp": 6.1280364990234375,
+   "t_enc": 5.623612584997318,
+   "t_dec": 5.441568611000548,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse",
+   "lr": 0.01
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.01,
+   "bytes": 401923,
+   "side bytes": 0,
+   "bpp": 6.1328582763671875,
+   "t_enc": 5.50335686499966,
+   "t_dec": 5.497919310997531,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse",
+   "steps": 2
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 2,
+   "bytes": 401370,
+   "side bytes": 0,
+   "bpp": 6.124420166015625,
+   "t_enc": 11.473078852999606,
+   "t_dec": 11.418705193998903,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse",
+   "n_prev": 1
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 1,
+   "bytes": 401362,
+   "side bytes": 0,
+   "bpp": 6.124298095703125,
+   "t_enc": 5.898123006998503,
+   "t_dec": 5.815471239002363,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse",
+   "n_prev": 0
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 0,
+   "bytes": 400926,
+   "side bytes": 0,
+   "bpp": 6.117645263671875,
+   "t_enc": 6.296587777000241,
+   "t_dec": 6.32610202000069,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse",
+   "hidden": 128
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "bytes": 401475,
+   "side bytes": 0,
+   "bpp": 6.1260223388671875,
+   "t_enc": 7.873869578001177,
+   "t_dec": 7.515021918999992,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse",
+   "steps": 3
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 3,
+   "bytes": 401522,
+   "side bytes": 0,
+   "bpp": 6.126739501953125,
+   "t_enc": 12.69964614499986,
+   "t_dec": 13.598736765998183,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "steps": 4
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 4,
+   "bytes": 1158883,
+   "side bytes": 0,
+   "bpp": 8.841575622558594,
+   "t_enc": 37.00392267600182,
+   "t_dec": 38.870146146997286,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse",
+   "steps": 4
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 4,
+   "bytes": 401646,
+   "side bytes": 0,
+   "bpp": 6.128631591796875,
+   "t_enc": 19.41449316500075,
+   "t_dec": 19.204919227002392,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "hidden": 32
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 1196453,
+   "side bytes": 0,
+   "bpp": 6.0854746500651045,
+   "t_enc": 17.04945905600107,
+   "t_dec": 17.327435572002287,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "lr": 0.01
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.01,
+   "bytes": 1190445,
+   "side bytes": 0,
+   "bpp": 6.0549163818359375,
+   "t_enc": 18.169932318000065,
+   "t_dec": 18.126509549998445,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "lr": 0.001
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.001,
+   "bytes": 1222757,
+   "side bytes": 0,
+   "bpp": 6.2192637125651045,
+   "t_enc": 18.324657872999524,
+   "t_dec": 18.63378971900238,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "lr": 0.006
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.006,
+   "bytes": 1194113,
+   "side bytes": 0,
+   "bpp": 6.0735727945963545,
+   "t_enc": 18.883790701998805,
+   "t_dec": 18.080501700998866,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "bytes": 1194265,
+   "side bytes": 0,
+   "bpp": 6.0743459065755205,
+   "t_enc": 21.25909142599994,
+   "t_dec": 21.162082252998516,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "n_prev": 0
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 0,
+   "bytes": 1457316,
+   "side bytes": 0,
+   "bpp": 7.41229248046875,
+   "t_enc": 15.831661306998285,
+   "t_dec": 16.163775408997026,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "steps": 4
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 4,
+   "bytes": 827116,
+   "side bytes": 0,
+   "bpp": 6.310394287109375,
+   "t_enc": 39.48819430500225,
+   "t_dec": 39.8403504889975,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "n_prev": 1
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 1,
+   "bytes": 1210036,
+   "side bytes": 0,
+   "bpp": 6.154561360677083,
+   "t_enc": 20.827102799001295,
+   "t_dec": 21.247321824997925,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "hidden": 128
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "bytes": 1197257,
+   "side bytes": 0,
+   "bpp": 6.0895640055338545,
+   "t_enc": 25.990698708999844,
+   "t_dec": 25.930757201000233,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "n_prev": 4
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 4,
+   "bytes": 1195652,
+   "side bytes": 0,
+   "bpp": 6.081400553385417,
+   "t_enc": 21.921028865999688,
+   "t_dec": 22.557202992000384,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "n_prev": 3
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 3,
+   "bytes": 1194840,
+   "side bytes": 0,
+   "bpp": 6.0772705078125,
+   "t_enc": 24.551033135998296,
+   "t_dec": 24.92702513599943,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "steps": 2
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 2,
+   "bytes": 1182688,
+   "side bytes": 0,
+   "bpp": 6.015462239583333,
+   "t_enc": 32.39091657300014,
+   "t_dec": 35.64422149299935,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "order": "greedy"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "greedy",
+   "bytes": 1203699,
+   "side bytes": 6,
+   "bpp": 6.1223297119140625,
+   "t_enc": 22.128453596000327,
+   "t_dec": 21.748236381001334,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "n_prev": 5
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 5,
+   "bytes": 1196560,
+   "side bytes": 0,
+   "bpp": 6.086018880208333,
+   "t_enc": 26.899942699001258,
+   "t_dec": 26.569803490001505,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "steps": 3
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 3,
+   "bytes": 1178088,
+   "side bytes": 0,
+   "bpp": 5.9920654296875,
+   "t_enc": 46.96403501399982,
+   "t_dec": 48.30641906800156,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "steps": 4
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 4,
+   "bytes": 1174116,
+   "side bytes": 0,
+   "bpp": 5.97186279296875,
+   "t_enc": 51.86413236500084,
+   "t_dec": 57.42387931399935,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids"
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "bytes": 1155582,
+   "side bytes": 0,
+   "bpp": 1.959197998046875,
+   "t_enc": 54.64099384700239,
+   "t_dec": 52.878706732000865,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "n_prev": 0
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 0,
+   "bytes": 1215565,
+   "side bytes": 0,
+   "bpp": 2.0608944363064237,
+   "t_enc": 47.340994207999756,
+   "t_dec": 44.959266990998,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "lr": 0.006
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.006,
+   "bytes": 1170102,
+   "side bytes": 0,
+   "bpp": 1.9838155110677083,
+   "t_enc": 54.882782487999066,
+   "t_dec": 54.393145221998566,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "hidden": 32
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 1163714,
+   "side bytes": 0,
+   "bpp": 1.9729851616753473,
+   "t_enc": 55.53830478600139,
+   "t_dec": 48.01595783000084,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "lr": 0.01
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.01,
+   "bytes": 1183974,
+   "side bytes": 0,
+   "bpp": 2.0073343912760415,
+   "t_enc": 59.015670330998546,
+   "t_dec": 52.82180247400174,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "lr": 0.001
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "lr": 0.001,
+   "bytes": 1164742,
+   "side bytes": 0,
+   "bpp": 1.9747280544704862,
+   "t_enc": 64.08955602100104,
+   "t_dec": 56.70539982599803,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "n_prev": 1
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 1,
+   "bytes": 1164145,
+   "side bytes": 0,
+   "bpp": 1.9737158881293402,
+   "t_enc": 60.66640133599867,
+   "t_dec": 48.05616100100087,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "hidden": 128
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "bytes": 1155762,
+   "side bytes": 0,
+   "bpp": 1.959503173828125,
+   "t_enc": 73.37466695699914,
+   "t_dec": 57.81194994800171,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "n_prev": 3
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 3,
+   "bytes": 1133297,
+   "side bytes": 0,
+   "bpp": 1.921415540907118,
+   "t_enc": 73.89003274500283,
+   "t_dec": 53.0854809750017,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "n_prev": 4
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 4,
+   "bytes": 1134861,
+   "side bytes": 0,
+   "bpp": 1.9240671793619792,
+   "t_enc": 67.67252388900306,
+   "t_dec": 55.83378825100226,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "order": "greedy"
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "greedy",
+   "bytes": 1201788,
+   "side bytes": 18,
+   "bpp": 2.03753662109375,
+   "t_enc": 58.90011654400223,
+   "t_dec": 42.11363994199928,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "steps": 2
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 2,
+   "bytes": 1156641,
+   "side bytes": 0,
+   "bpp": 1.9609934488932292,
+   "t_enc": 95.54136258799917,
+   "t_dec": 73.3709800559991,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "n_prev": 5
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 5,
+   "bytes": 1136621,
+   "side bytes": 0,
+   "bpp": 1.9270511203342013,
+   "t_enc": 80.80517514899839,
+   "t_dec": 54.05304517299737,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "steps": 3
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 3,
+   "bytes": 1158601,
+   "side bytes": 0,
+   "bpp": 1.9643164740668402,
+   "t_enc": 123.80441073999827,
+   "t_dec": 76.76814046399886,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "steps": 4
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 4,
+   "bytes": 1161953,
+   "side bytes": 0,
+   "bpp": 1.969999525282118,
+   "t_enc": 151.59431244000007,
+   "t_dec": 82.56002702299884,
+   "pixels": 4718592
+  }
+ },
+ {
+  "config": {
+   "sample": "S1 Toulouse",
+   "n_prev": 1,
+   "steps": 2
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 1,
+   "steps": 2,
+   "bytes": 401358,
+   "side bytes": 0,
+   "bpp": 6.124237060546875,
+   "t_enc": 6.247673863003001,
+   "t_dec": 5.80496820800181,
+   "pixels": 524288
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Beauce",
+   "n_prev": 3,
+   "steps": 2
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 3,
+   "steps": 2,
+   "bytes": 826412,
+   "side bytes": 0,
+   "bpp": 6.305023193359375,
+   "t_enc": 13.275344787001814,
+   "t_dec": 13.0174861029991,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "n_prev": 3,
+   "steps": 2
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 3,
+   "steps": 2,
+   "bytes": 1155903,
+   "side bytes": 0,
+   "bpp": 8.818840026855469,
+   "t_enc": 13.439615903997037,
+   "t_dec": 13.003502895000565,
+   "pixels": 1048576
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "n_prev": 3,
+   "steps": 2
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 3,
+   "steps": 2,
+   "bytes": 1183916,
+   "side bytes": 0,
+   "bpp": 6.021708170572917,
+   "t_enc": 20.219992618000106,
+   "t_dec": 18.288453711997136,
+   "pixels": 1572864
+  }
+ },
+ {
+  "config": {
+   "sample": "LST 18 grids",
+   "n_prev": 3,
+   "steps": 2
+  },
+  "result": {
+   "sample": "LST 18 grids",
+   "two_pass": 0,
+   "order": "natural",
+   "n_prev": 3,
+   "steps": 2,
+   "bytes": 1132549,
+   "side bytes": 0,
+   "bpp": 1.9201473659939237,
+   "t_enc": 54.21945932700328,
+   "t_dec": 49.29485224099699,
+   "pixels": 4718592
+  }
+ }
+]

@@ -36,18 +36,25 @@ from .residual import ResidualModel
 PAD = 2
 CUR = [(0, -1), (-1, 0), (-1, -1), (-1, 1), (0, -2), (-2, 0)]  # W N NW NE WW NN
 WIN = [(dy, dx) for dy in (-1, 0, 1) for dx in (-1, 0, 1)]  # 3x3 in an earlier band
-N_PREV = 2  # earlier bands used as side information
+N_PREV = 2  # earlier bands used as side information (default)
 N_IN = len(CUR) + 2 + N_PREV * (len(WIN) + 2)
 N_EXTRA = 4 + 5 * N_PREV
+OPTS = "<3B"  # train_every, steps, n_prev: present only in SZ3 / SQ3 streams
+DEFAULT_OPTS = (1, 1, N_PREV)
 MAGIC = b"SZ2"
 LEGACY_MAGIC = b"SZ1"
 QUADRATURE_MAGIC = b"SQ2"
 
 
-def make_model(hidden: int = 64, *, version=2) -> torch.nn.Sequential:
+def n_inputs(version=2, n_prev=N_PREV):
+    base = len(CUR) + 2 + n_prev * (len(WIN) + 2)
+    return base if version == 1 else base + 4 + 5 * n_prev
+
+
+def make_model(hidden: int = 64, *, version=2, n_prev=N_PREV) -> torch.nn.Sequential:
     torch.manual_seed(0)
     m = torch.nn.Sequential(
-        torch.nn.Linear(N_IN if version == 1 else N_IN + N_EXTRA, hidden), torch.nn.SiLU(),
+        torch.nn.Linear(n_inputs(version, n_prev), hidden), torch.nn.SiLU(),
         torch.nn.Linear(hidden, hidden), torch.nn.SiLU(),
         torch.nn.Linear(hidden, 2),
     )
@@ -73,13 +80,13 @@ def _ctx(P, p, yy, xx):
     return ref, act
 
 
-def _features(P, norm, b, y, x, version):
+def _features(P, norm, b, y, x, version, n_prev=N_PREV):
     """Inputs scaled by local activity, so the net sees the same numbers in flat and in busy areas."""
     yy, xx = y + PAD, x + PAD
     ref, act = _ctx(P, b, yy, xx)
     mu, sig = norm[b]
     cols = [(P[b][yy + dy, xx + dx] - ref) / act for dy, dx in CUR] + [np.log(act), (ref - mu) / sig]
-    for k in range(1, N_PREV + 1):
+    for k in range(1, n_prev + 1):
         if b - k >= 0:
             ref_p, act_p = _ctx(P, b - k, yy, xx)
             cols += [(P[b - k][yy + dy, xx + dx] - ref_p) / act_p for dy, dx in WIN] + [np.log(act_p), np.ones(len(y))]
@@ -91,7 +98,7 @@ def _features(P, norm, b, y, x, version):
         cur = np.stack([P[b][yy + dy, xx + dx] for dy, dx in CUR])
         avg = cur.mean(0)
         centered = cur - avg
-        for k in range(1, N_PREV + 1):
+        for k in range(1, n_prev + 1):
             if b < k:
                 cols.extend([np.zeros(len(y))] * 5)
                 continue
@@ -120,10 +127,32 @@ def laplace_nll(s, mean, scale):
     return -torch.where(a >= 0.5, tail, torch.log(center.clamp_min(1e-12)))
 
 
-def _run(P, M, stats, model, lr, code, version, laplace_bits=None):
+def _predict(model, f, ref, act):
+    out = model(f)
+    return ref + act * out[:, 0], act * torch.nn.functional.softplus(out[:, 1]) + 0.05
+
+
+def _train(model, opt, batch, steps):
+    """`steps` Adam steps on the pooled pixels of the last wavefronts."""
+    f, ref, act, s = (torch.cat(t) for t in zip(*batch))
+    for _ in range(steps):
+        mean, scale = _predict(model, f, ref, act)
+        opt.zero_grad()
+        laplace_nll(s, mean, scale).mean().backward()
+        torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        opt.step()
+
+
+def _run(P, M, stats, model, lr, code, version, laplace_bits=None, opts=DEFAULT_OPTS):
     """Walk all bands and wavefronts. `code` returns the true symbols of a batch:
     the encoder reads and encodes them, the decoder decodes them. M holds the
-    valid-pixel masks, known to both sides; fill pixels are never coded."""
+    valid-pixel masks, known to both sides; fill pixels are never coded.
+
+    opts = (train_every, steps, n_prev). The default (1, 1, 2) takes one step per
+    wavefront and reuses the prediction graph, exactly as SZ1/SZ2 streams expect."""
+    train_every, steps, n_prev = opts
+    if opts != DEFAULT_OPTS:
+        return _run_batched(P, M, stats, model, lr, code, version, train_every, steps, n_prev)
     torch.set_num_threads(1)  # ponytail: fixed thread count keeps float sums bit-identical across encode/decode
     opt = torch.optim.Adam(model.parameters(), lr=lr)
     B, H, W = M.shape
@@ -150,6 +179,38 @@ def _run(P, M, stats, model, lr, code, version, laplace_bits=None):
             opt.step()
             if laplace_bits is not None:
                 laplace_bits[b, y, x] = nll.detach().numpy() / math.log(2)
+
+
+def _run_batched(P, M, stats, model, lr, code, version, train_every, steps, n_prev):
+    """Predict without a graph, then train on the pixels of `train_every` wavefronts at once.
+    Fewer optimizer calls means less Python overhead per pixel."""
+    torch.set_num_threads(1)
+    opt = torch.optim.Adam(model.parameters(), lr=lr)
+    B, H, W = M.shape
+    norm = [(s[2], s[3]) for s in stats]
+    for b in range(B):
+        if stats[b][0] == stats[b][1] or not M[b].any():
+            P[b].fill(stats[b][2])
+            continue
+        batch = []
+        for y, x in wavefronts(H, W):
+            k = M[b, y, x]
+            if not k.any():
+                continue
+            y, x = y[k], x[k]
+            f, ref, act = _features(P, norm, b, y, x, version, n_prev)
+            with torch.no_grad():
+                mean, scale = _predict(model, f, ref, act)
+            s = code(b, y, x, mean.double().numpy(), scale.double().numpy())
+            P[b][y + PAD, x + PAD] = s
+            if steps == 0:  # frozen model: decoder runs inference only
+                continue
+            batch.append((f, ref, act, torch.from_numpy(s.astype(np.float32))))
+            if len(batch) == train_every:
+                _train(model, opt, batch, steps)
+                batch = []
+        if batch:  # end of band: learn from the remainder before the next band
+            _train(model, opt, batch, steps)
 
 
 def _band_stats(img, M):
@@ -213,8 +274,8 @@ def _version(prior, version):
     return version
 
 
-def _initial_model(hidden, prior, version):
-    model = make_model(hidden, version=version)
+def _initial_model(hidden, prior, version, n_prev=N_PREV):
+    model = make_model(hidden, version=version, n_prev=n_prev)
     if prior is not None:
         model.load_state_dict(prior)
     return model
@@ -227,7 +288,8 @@ def _entropy_models(stats, version):
 
 
 def compress(img: np.ndarray, prior=None, hidden: int = 64, lr: float = 3e-3,
-             fill: int | None = None, *, version: int | None = None, quadrature=None):
+             fill: int | None = None, *, version: int | None = None, quadrature=None,
+             train_every: int = 1, steps: int = 1, n_prev: int = N_PREV):
     """Return the complete stream and estimated symbol costs for an integer (bands, H, W) image.
 
     The default is SZ2. Supply version=1 to reproduce SZ1, or pass an SZ1 prior
@@ -236,6 +298,11 @@ def compress(img: np.ndarray, prior=None, hidden: int = 64, lr: float = 3e-3,
     """
     assert img.ndim == 3 and img.dtype.kind in "ui", "expected (bands, H, W) integer array"
     version = _version(prior, version)
+    opts = (train_every, steps, n_prev)
+    if opts != DEFAULT_OPTS and version != 2:
+        raise ValueError("train_every, steps and n_prev need SZ2 or later")
+    if not (1 <= train_every <= 255 and 0 <= steps <= 255 and 0 <= n_prev <= 255):
+        raise ValueError("train_every must be 1..255, steps and n_prev 0..255 (steps=0: no online training)")
     if quadrature is not None:
         if version != 2:
             raise ValueError("quadrature prediction requires SZ2")
@@ -244,7 +311,7 @@ def compress(img: np.ndarray, prior=None, hidden: int = 64, lr: float = 3e-3,
     bands, tables = palette.prepare(img, M) if version == 2 else (img, b"")
     stats = _band_stats(bands, M)
     lr = struct.unpack("<f", struct.pack("<f", lr))[0]
-    model = _initial_model(hidden, prior, version)
+    model = _initial_model(hidden, prior, version, n_prev)
     enc = constriction.stream.queue.RangeEncoder()
     families = _entropy_models(stats, version)
     bits = np.zeros(img.shape, np.float32)
@@ -257,16 +324,19 @@ def compress(img: np.ndarray, prior=None, hidden: int = 64, lr: float = 3e-3,
             bits[b, y, x] = families[b].encode(enc, s, mean, scale)
         return s
 
-    _run(_padded(bands, M, stats), M, stats, model, lr, code, version, bits if version == 1 else None)
+    _run(_padded(bands, M, stats), M, stats, model, lr, code, version, bits if version == 1 else None, opts)
     magic = MAGIC if version == 2 else LEGACY_MAGIC
     if quadrature is not None:
         magic = QUADRATURE_MAGIC
         tables = uncertainty.pack(quadrature) + tables
+    extra = b""
+    if opts != DEFAULT_OPTS:  # SZ3 / SQ3: SZ2 layout plus the option bytes after the header
+        magic, extra = magic[:2] + b"3", struct.pack(OPTS, *opts)
     stored_fill = int(fill or 0)
     if version == 2 and img.dtype.kind == "u" and stored_fill >= 1 << 63:
         stored_fill -= 1 << 64
     head = magic + img.dtype.str.encode() + struct.pack(HEAD, *img.shape, hidden, lr, fill is not None, stored_fill)
-    head += b"".join(struct.pack(BAND, *s) for s in stats) + prior_hash(prior) + tables
+    head += extra + b"".join(struct.pack(BAND, *s) for s in stats) + prior_hash(prior) + tables
     if fill is not None:
         head += _pack_masks(M)
     return head + enc.get_compressed().tobytes(), bits
@@ -274,22 +344,26 @@ def compress(img: np.ndarray, prior=None, hidden: int = 64, lr: float = 3e-3,
 
 def decompress(data: bytes, prior=None) -> np.ndarray:
     magic = data[:3]
-    if magic not in (MAGIC, LEGACY_MAGIC, QUADRATURE_MAGIC):
+    if magic not in (MAGIC, LEGACY_MAGIC, QUADRATURE_MAGIC, b"SZ3", b"SQ3"):
         raise ValueError("not a satzip stream")
     version = 1 if magic == LEGACY_MAGIC else 2
     dtype = np.dtype(data[3:6].decode())
     B, H, W, hidden, lr, has_fill, fill = struct.unpack_from(HEAD, data, 6)
     off = 6 + struct.calcsize(HEAD)
+    opts = DEFAULT_OPTS
+    if magic[2:] == b"3":
+        opts = struct.unpack_from(OPTS, data, off)
+        off += struct.calcsize(OPTS)
     stats = [struct.unpack_from(BAND, data, off + i * struct.calcsize(BAND)) for i in range(B)]
     stats = [(lo, hi, m, np.float32(s)) for lo, hi, m, s in stats]
     off += struct.calcsize(BAND) * B
     if data[off:off + 8] != prior_hash(prior):
         raise ValueError("prior does not match the one used to compress")
     off += 8
-    quadrature, off = uncertainty.unpack(data, off) if magic == QUADRATURE_MAGIC else (None, off)
+    quadrature, off = uncertainty.unpack(data, off) if magic[:2] == b"SQ" else (None, off)
     tables, off = palette.read(data, off, dtype, B) if version == 2 else ([None] * B, off)
     M, off = _unpack_masks(data, off, B, H, W) if has_fill else (np.ones((B, H, W), bool), off)
-    model = _initial_model(hidden, prior, version)
+    model = _initial_model(hidden, prior, version, opts[2])
     dec = constriction.stream.queue.RangeDecoder(np.frombuffer(data[off:], np.uint32).copy())
     families = _entropy_models(stats, version)
     P = _padded(np.zeros((B, H, W), np.int32), M, stats)
@@ -299,7 +373,7 @@ def decompress(data: bytes, prior=None) -> np.ndarray:
             return dec.decode(families[b], mean, scale)
         return families[b].decode(dec, mean, scale)
 
-    _run(P, M, stats, model, lr, code, version)
+    _run(P, M, stats, model, lr, code, version, opts=opts)
     out = np.empty((B, H, W), dtype)
     for band, padded, table in zip(out, P, tables):
         values = padded[PAD:-PAD, PAD:-PAD]
@@ -314,12 +388,14 @@ def decompress(data: bytes, prior=None) -> np.ndarray:
 
 
 def pretrain(tiles, hidden: int = 64, lr: float = 3e-3, epochs: int = 1,
-             fill: int | None = None, *, version: int = 2, quadrature=None):
+             fill: int | None = None, *, version: int = 2, quadrature=None,
+             train_every: int = 1, steps: int = 1, n_prev: int = N_PREV, init=None):
     """Train initial weights with the same predictor and rank transform as the requested codec."""
     version = _version(None, version)
     if quadrature is not None and version != 2:
         raise ValueError("quadrature prediction requires SZ2")
-    model = make_model(hidden, version=version)
+    model = _initial_model(hidden, init, version, n_prev)
+    opts = (train_every, steps, n_prev)
     for _ in range(epochs):
         for img in tiles:
             if quadrature is not None:
@@ -328,7 +404,7 @@ def pretrain(tiles, hidden: int = 64, lr: float = 3e-3, epochs: int = 1,
             bands = palette.prepare(img, M)[0] if version == 2 else img
             stats = _band_stats(bands, M)
             _run(_padded(bands, M, stats), M, stats, model, lr,
-                 lambda b, y, x, *_: bands[b][y, x].astype(np.int32), version)
+                 lambda b, y, x, *_: bands[b][y, x].astype(np.int32), version, opts=opts)
     return {k: v.detach().clone() for k, v in model.state_dict().items()}
 
 
