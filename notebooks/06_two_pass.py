@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.25.2"
-app = marimo.App(width="medium")
+app = marimo.App(width="full")
 
 with app.setup:
     import marimo as mo
@@ -46,7 +46,7 @@ def _():
         **{f"two-pass E={e} + online": {"two_pass": e} for e in (1, 2, 4)},
         **{f"two-pass E={e}, frozen": {"two_pass": e, "steps": 0} for e in (1, 2, 4)},
     }
-    configs = [{"sample": s, **v} for s in lab.SAMPLES for v in VARIANTS.values()]
+    configs = [{"sample": s, **v} for s in lab.SMALL for v in VARIANTS.values()]
     run = mo.ui.run_button(label=f"Compute missing results ({len(configs)} configurations, all cores)")
     mo.vstack([mo.md(f"Cache: `{CACHE.relative_to(lab.ROOT)}` "
                      f"({'found' if CACHE.exists() else 'not found, press the button'})"), run])
@@ -58,7 +58,7 @@ def _(VARIANTS, configs, run):
     mo.stop(not CACHE.exists() and not run.value, mo.md("No results yet."))
     with mo.status.progress_bar(total=len(configs), title="Measuring") as _bar:
         _rows = lab.grid(configs, CACHE, progress=lambda n, t: _bar.update())
-    _names = [n for _ in lab.SAMPLES for n in VARIANTS]
+    _names = [n for _ in lab.SMALL for n in VARIANTS]
     results = [{"variant": n, **r} for n, r in zip(_names, _rows)]
     ref = {r["sample"]: r for r in results if r["variant"] == "SZ2 (online only)"}
     table = [{"sample": r["sample"], "variant": r["variant"], "bits/pixel": round(r["bpp"], 4),
@@ -73,7 +73,7 @@ def _(VARIANTS, configs, run):
 
 @app.cell
 def _(VARIANTS, table):
-    _samples = list(lab.SAMPLES)
+    _samples = list(lab.SMALL)
     _variants = [v for v in VARIANTS if v != "SZ2 (online only)"]
     _y = np.arange(len(_variants))
     tp_fig, _axs = plt.subplots(1, len(_samples), figsize=(3.4 * len(_samples), 3.6), sharey=True,
@@ -99,7 +99,7 @@ def _(VARIANTS, table):
 
 
 @app.cell
-def _(results, ref):
+def _(ref, results):
     # The weights are a fixed cost; the pixel-stream saving grows with the image.
     # Break-even image size = weight bytes / (saving in bytes per pixel).
     _rows = []

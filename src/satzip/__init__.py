@@ -17,6 +17,7 @@ gives about W + 2H network calls per band instead of H * W.
 
 import hashlib
 import io
+import os
 import json
 import lzma
 import math
@@ -26,6 +27,8 @@ import zlib
 from collections import OrderedDict
 from pathlib import Path
 
+os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")  # deterministic GPU matmuls (must precede CUDA init)
+
 import constriction
 import numpy as np
 import torch
@@ -33,14 +36,15 @@ import torch
 from . import palette, uncertainty
 from .residual import ResidualModel
 
-PAD = 2
+PAD = 8  # border of the working copy; also the largest `context` radius
 CUR = [(0, -1), (-1, 0), (-1, -1), (-1, 1), (0, -2), (-2, 0)]  # W N NW NE WW NN
 WIN = [(dy, dx) for dy in (-1, 0, 1) for dx in (-1, 0, 1)]  # 3x3 in an earlier band
 N_PREV = 2  # earlier bands used as side information (default)
 N_IN = len(CUR) + 2 + N_PREV * (len(WIN) + 2)
 N_EXTRA = 4 + 5 * N_PREV
-OPTS = "<3B"  # train_every, steps, n_prev: present only in SZ3 / SQ3 streams
-DEFAULT_OPTS = (1, 1, N_PREV)
+# Encoder options. SZ2 streams use the defaults; SZ3 / SQ3 streams store the others as JSON.
+DEFAULTS = {"train_every": 1, "steps": 1, "n_prev": N_PREV, "blocks": 0, "context": 0, "device": "cpu"}
+_SZ2_CUR = set(CUR) | {(-1, -2), (-2, -1), (-2, 1), (-2, 2)}
 MAGIC = b"SZ2"
 LEGACY_MAGIC = b"SZ1"
 QUADRATURE_MAGIC = b"SQ2"
@@ -51,10 +55,50 @@ def n_inputs(version=2, n_prev=N_PREV):
     return base if version == 1 else base + 4 + 5 * n_prev
 
 
-def make_model(hidden: int = 64, *, version=2, n_prev=N_PREV) -> torch.nn.Sequential:
+def _cur_offsets(r):
+    """Causal offsets in the current band within radius r, beyond the SZ2 set. dx + 2dy < 0
+    means an earlier wavefront, so the decoder already has the value."""
+    return [(dy, dx) for dy in range(-r, 1) for dx in range(-r, r + 1)
+            if dx + 2 * dy < 0 and (dy, dx) not in _SZ2_CUR]
+
+
+def _win_offsets(r):
+    """Offsets in an earlier band within radius r, beyond its 3 x 3 window."""
+    return [(dy, dx) for dy in range(-r, r + 1) for dx in range(-r, r + 1) if max(abs(dy), abs(dx)) > 1]
+
+
+def n_context(context, n_prev=N_PREV):
+    return 0 if context < 2 else len(_cur_offsets(context)) + n_prev * len(_win_offsets(context))
+
+
+class ResMLP(torch.nn.Module):
+    """Wider and deeper predictor: input layer, `blocks` pre-norm residual blocks, zero-initialised head."""
+
+    def __init__(self, n_in, hidden, blocks):
+        super().__init__()
+        self.inp = torch.nn.Linear(n_in, hidden)
+        self.blocks = torch.nn.ModuleList(torch.nn.Sequential(
+            torch.nn.LayerNorm(hidden), torch.nn.Linear(hidden, hidden), torch.nn.SiLU(),
+            torch.nn.Linear(hidden, hidden)) for _ in range(blocks))
+        self.out = torch.nn.Linear(hidden, 2)
+        torch.nn.init.zeros_(self.out.weight)  # start as the plain MED predictor
+        torch.nn.init.zeros_(self.out.bias)
+
+    def forward(self, x):
+        x = self.inp(x)
+        for block in self.blocks:
+            x = x + block(x)
+        return self.out(torch.nn.functional.silu(x))
+
+
+def make_model(hidden: int = 64, *, version=2, n_prev=N_PREV, blocks=0, context=0) -> torch.nn.Module:
+    """blocks=0: the SZ1/SZ2 network (two hidden layers). blocks>0: ResMLP."""
     torch.manual_seed(0)
+    n_in = n_inputs(version, n_prev) + n_context(context, n_prev)
+    if blocks:
+        return ResMLP(n_in, hidden, blocks)
     m = torch.nn.Sequential(
-        torch.nn.Linear(n_inputs(version, n_prev), hidden), torch.nn.SiLU(),
+        torch.nn.Linear(n_in, hidden), torch.nn.SiLU(),
         torch.nn.Linear(hidden, hidden), torch.nn.SiLU(),
         torch.nn.Linear(hidden, 2),
     )
@@ -80,7 +124,7 @@ def _ctx(P, p, yy, xx):
     return ref, act
 
 
-def _features(P, norm, b, y, x, version, n_prev=N_PREV):
+def _features(P, norm, b, y, x, version, n_prev=N_PREV, context=0):
     """Inputs scaled by local activity, so the net sees the same numbers in flat and in busy areas."""
     yy, xx = y + PAD, x + PAD
     ref, act = _ctx(P, b, yy, xx)
@@ -113,6 +157,15 @@ def _features(P, norm, b, y, x, version, n_prev=N_PREV):
             cols.extend([level, (level * sig + mu - ref) / act,
                          (avg + slope * (v - prev_avg) - ref) / act, slope,
                          np.abs(centered - slope * prev).mean(0) / act])
+    if context >= 2:  # wider windows, same normalisation as the SZ2 inputs
+        cols.extend((P[b][yy + dy, xx + dx] - ref) / act for dy, dx in _cur_offsets(context))
+        win = _win_offsets(context)
+        for k in range(1, n_prev + 1):
+            if b - k >= 0:
+                ref_p, act_p = _ctx(P, b - k, yy, xx)
+                cols.extend((P[b - k][yy + dy, xx + dx] - ref_p) / act_p for dy, dx in win)
+            else:
+                cols.extend([np.zeros(len(y))] * len(win))
     t = lambda a: torch.from_numpy(np.asarray(a, np.float32))
     return t(np.arcsinh(np.stack(cols, 1))), t(ref), t(act)  # asinh: class edges give huge ratios
 
@@ -143,16 +196,15 @@ def _train(model, opt, batch, steps):
         opt.step()
 
 
-def _run(P, M, stats, model, lr, code, version, laplace_bits=None, opts=DEFAULT_OPTS):
+def _run(P, M, stats, model, lr, code, version, laplace_bits=None, opts=None):
     """Walk all bands and wavefronts. `code` returns the true symbols of a batch:
     the encoder reads and encodes them, the decoder decodes them. M holds the
     valid-pixel masks, known to both sides; fill pixels are never coded.
 
-    opts = (train_every, steps, n_prev). The default (1, 1, 2) takes one step per
-    wavefront and reuses the prediction graph, exactly as SZ1/SZ2 streams expect."""
-    train_every, steps, n_prev = opts
-    if opts != DEFAULT_OPTS:
-        return _run_batched(P, M, stats, model, lr, code, version, train_every, steps, n_prev)
+    With default options this takes one step per wavefront and reuses the prediction
+    graph, exactly as SZ1/SZ2 streams expect. Other options use _run_batched."""
+    if opts and opts != DEFAULTS:
+        return _run_batched(P, M, stats, model, lr, code, version, opts)
     torch.set_num_threads(1)  # ponytail: fixed thread count keeps float sums bit-identical across encode/decode
     opt = torch.optim.Adam(model.parameters(), lr=lr)
     B, H, W = M.shape
@@ -181,10 +233,16 @@ def _run(P, M, stats, model, lr, code, version, laplace_bits=None, opts=DEFAULT_
                 laplace_bits[b, y, x] = nll.detach().numpy() / math.log(2)
 
 
-def _run_batched(P, M, stats, model, lr, code, version, train_every, steps, n_prev):
+def _run_batched(P, M, stats, model, lr, code, version, opts):
     """Predict without a graph, then train on the pixels of `train_every` wavefronts at once.
-    Fewer optimizer calls means less Python overhead per pixel."""
+    Fewer optimizer calls means less Python overhead per pixel. Runs the network on
+    opts["device"]; features and the range coder stay on the CPU."""
+    train_every, steps, n_prev, context = opts["train_every"], opts["steps"], opts["n_prev"], opts["context"]
+    dev = torch.device(opts["device"])
     torch.set_num_threads(1)
+    if dev.type != "cpu":
+        torch.use_deterministic_algorithms(True)  # the decoder must reproduce every float
+    model.to(dev)
     opt = torch.optim.Adam(model.parameters(), lr=lr)
     B, H, W = M.shape
     norm = [(s[2], s[3]) for s in stats]
@@ -198,14 +256,14 @@ def _run_batched(P, M, stats, model, lr, code, version, train_every, steps, n_pr
             if not k.any():
                 continue
             y, x = y[k], x[k]
-            f, ref, act = _features(P, norm, b, y, x, version, n_prev)
+            f, ref, act = (t.to(dev) for t in _features(P, norm, b, y, x, version, n_prev, context))
             with torch.no_grad():
                 mean, scale = _predict(model, f, ref, act)
-            s = code(b, y, x, mean.double().numpy(), scale.double().numpy())
+            s = code(b, y, x, mean.cpu().double().numpy(), scale.cpu().double().numpy())
             P[b][y + PAD, x + PAD] = s
             if steps == 0:  # frozen model: decoder runs inference only
                 continue
-            batch.append((f, ref, act, torch.from_numpy(s.astype(np.float32))))
+            batch.append((f, ref, act, torch.from_numpy(s.astype(np.float32)).to(dev)))
             if len(batch) == train_every:
                 _train(model, opt, batch, steps)
                 batch = []
@@ -274,11 +332,28 @@ def _version(prior, version):
     return version
 
 
-def _initial_model(hidden, prior, version, n_prev=N_PREV):
-    model = make_model(hidden, version=version, n_prev=n_prev)
+def _initial_model(hidden, prior, version, opts=None):
+    o = {**DEFAULTS, **(opts or {})}
+    model = make_model(hidden, version=version, n_prev=o["n_prev"], blocks=o["blocks"], context=o["context"])
     if prior is not None:
         model.load_state_dict(prior)
     return model
+
+
+def _options(version, **given):
+    """Validated encoder options (all keys of DEFAULTS)."""
+    unknown = set(given) - set(DEFAULTS)
+    if unknown:
+        raise TypeError(f"unknown options: {sorted(unknown)}")
+    o = {**DEFAULTS, **given}
+    o["device"] = torch.device(o["device"]).type  # "cuda:1" -> "cuda": the stream records the kind only
+    if o != DEFAULTS and version != 2:
+        raise ValueError("encoder options need SZ2 or later")
+    if not (1 <= o["train_every"] and 0 <= o["steps"] and 0 <= o["n_prev"] and 0 <= o["blocks"]):
+        raise ValueError("train_every >= 1; steps, n_prev, blocks >= 0 (steps=0: no online training)")
+    if o["context"] not in (0, *range(2, PAD + 1)):
+        raise ValueError(f"context must be 0 or 2..{PAD}")
+    return o
 
 
 def _entropy_models(stats, version):
@@ -288,21 +363,20 @@ def _entropy_models(stats, version):
 
 
 def compress(img: np.ndarray, prior=None, hidden: int = 64, lr: float = 3e-3,
-             fill: int | None = None, *, version: int | None = None, quadrature=None,
-             train_every: int = 1, steps: int = 1, n_prev: int = N_PREV):
+             fill: int | None = None, *, version: int | None = None, quadrature=None, **options):
     """Return the complete stream and estimated symbol costs for an integer (bands, H, W) image.
 
     The default is SZ2. Supply version=1 to reproduce SZ1, or pass an SZ1 prior
     to select its original codec automatically. For a packed uncertainty product,
     quadrature=(total_index, component_indices) stores a reversible prediction recipe.
+
+    options (stored in the stream, format SZ3 / SQ3 when any differs from DEFAULTS):
+    train_every, steps, n_prev, blocks (ResMLP depth, 0 = SZ2 network),
+    context (wider window radius, 0 or 2..8), device ("cpu", "cuda", ...).
     """
     assert img.ndim == 3 and img.dtype.kind in "ui", "expected (bands, H, W) integer array"
     version = _version(prior, version)
-    opts = (train_every, steps, n_prev)
-    if opts != DEFAULT_OPTS and version != 2:
-        raise ValueError("train_every, steps and n_prev need SZ2 or later")
-    if not (1 <= train_every <= 255 and 0 <= steps <= 255 and 0 <= n_prev <= 255):
-        raise ValueError("train_every must be 1..255, steps and n_prev 0..255 (steps=0: no online training)")
+    opts = _options(version, **options)
     if quadrature is not None:
         if version != 2:
             raise ValueError("quadrature prediction requires SZ2")
@@ -311,7 +385,7 @@ def compress(img: np.ndarray, prior=None, hidden: int = 64, lr: float = 3e-3,
     bands, tables = palette.prepare(img, M) if version == 2 else (img, b"")
     stats = _band_stats(bands, M)
     lr = struct.unpack("<f", struct.pack("<f", lr))[0]
-    model = _initial_model(hidden, prior, version, n_prev)
+    model = _initial_model(hidden, prior, version, opts)
     enc = constriction.stream.queue.RangeEncoder()
     families = _entropy_models(stats, version)
     bits = np.zeros(img.shape, np.float32)
@@ -330,8 +404,9 @@ def compress(img: np.ndarray, prior=None, hidden: int = 64, lr: float = 3e-3,
         magic = QUADRATURE_MAGIC
         tables = uncertainty.pack(quadrature) + tables
     extra = b""
-    if opts != DEFAULT_OPTS:  # SZ3 / SQ3: SZ2 layout plus the option bytes after the header
-        magic, extra = magic[:2] + b"3", struct.pack(OPTS, *opts)
+    if opts != DEFAULTS:  # SZ3 / SQ3: SZ2 layout plus the non-default options as JSON
+        blob = json.dumps({k: v for k, v in opts.items() if v != DEFAULTS[k]}, sort_keys=True).encode()
+        magic, extra = magic[:2] + b"3", struct.pack("<H", len(blob)) + blob
     stored_fill = int(fill or 0)
     if version == 2 and img.dtype.kind == "u" and stored_fill >= 1 << 63:
         stored_fill -= 1 << 64
@@ -342,7 +417,17 @@ def compress(img: np.ndarray, prior=None, hidden: int = 64, lr: float = 3e-3,
     return head + enc.get_compressed().tobytes(), bits
 
 
-def decompress(data: bytes, prior=None) -> np.ndarray:
+def stream_options(data: bytes) -> dict:
+    """Encoder options recorded in a stream (DEFAULTS for SZ1 / SZ2)."""
+    if data[2:3] != b"3":
+        return dict(DEFAULTS)
+    off = 6 + struct.calcsize(HEAD)
+    (n,) = struct.unpack_from("<H", data, off)
+    return {**DEFAULTS, **json.loads(data[off + 2:off + 2 + n])}
+
+
+def decompress(data: bytes, prior=None, device: str | None = None) -> np.ndarray:
+    """Decode a stream. `device` overrides the recorded device kind (the floats must still match)."""
     magic = data[:3]
     if magic not in (MAGIC, LEGACY_MAGIC, QUADRATURE_MAGIC, b"SZ3", b"SQ3"):
         raise ValueError("not a satzip stream")
@@ -350,10 +435,11 @@ def decompress(data: bytes, prior=None) -> np.ndarray:
     dtype = np.dtype(data[3:6].decode())
     B, H, W, hidden, lr, has_fill, fill = struct.unpack_from(HEAD, data, 6)
     off = 6 + struct.calcsize(HEAD)
-    opts = DEFAULT_OPTS
+    opts = stream_options(data)
     if magic[2:] == b"3":
-        opts = struct.unpack_from(OPTS, data, off)
-        off += struct.calcsize(OPTS)
+        off += 2 + struct.unpack_from("<H", data, off)[0]
+    if device is not None:
+        opts["device"] = device
     stats = [struct.unpack_from(BAND, data, off + i * struct.calcsize(BAND)) for i in range(B)]
     stats = [(lo, hi, m, np.float32(s)) for lo, hi, m, s in stats]
     off += struct.calcsize(BAND) * B
@@ -363,7 +449,7 @@ def decompress(data: bytes, prior=None) -> np.ndarray:
     quadrature, off = uncertainty.unpack(data, off) if magic[:2] == b"SQ" else (None, off)
     tables, off = palette.read(data, off, dtype, B) if version == 2 else ([None] * B, off)
     M, off = _unpack_masks(data, off, B, H, W) if has_fill else (np.ones((B, H, W), bool), off)
-    model = _initial_model(hidden, prior, version, opts[2])
+    model = _initial_model(hidden, prior, version, opts)
     dec = constriction.stream.queue.RangeDecoder(np.frombuffer(data[off:], np.uint32).copy())
     families = _entropy_models(stats, version)
     P = _padded(np.zeros((B, H, W), np.int32), M, stats)
@@ -388,14 +474,14 @@ def decompress(data: bytes, prior=None) -> np.ndarray:
 
 
 def pretrain(tiles, hidden: int = 64, lr: float = 3e-3, epochs: int = 1,
-             fill: int | None = None, *, version: int = 2, quadrature=None,
-             train_every: int = 1, steps: int = 1, n_prev: int = N_PREV, init=None):
-    """Train initial weights with the same predictor and rank transform as the requested codec."""
+             fill: int | None = None, *, version: int = 2, quadrature=None, init=None, **options):
+    """Train initial weights with the same predictor, rank transform and options as the codec.
+    Returns CPU tensors (a prior for compress / decompress)."""
     version = _version(None, version)
     if quadrature is not None and version != 2:
         raise ValueError("quadrature prediction requires SZ2")
-    model = _initial_model(hidden, init, version, n_prev)
-    opts = (train_every, steps, n_prev)
+    opts = _options(version, **options)
+    model = _initial_model(hidden, init, version, opts)
     for _ in range(epochs):
         for img in tiles:
             if quadrature is not None:
@@ -405,7 +491,7 @@ def pretrain(tiles, hidden: int = 64, lr: float = 3e-3, epochs: int = 1,
             stats = _band_stats(bands, M)
             _run(_padded(bands, M, stats), M, stats, model, lr,
                  lambda b, y, x, *_: bands[b][y, x].astype(np.int32), version, opts=opts)
-    return {k: v.detach().clone() for k, v in model.state_dict().items()}
+    return {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
 
 
 def prior_nbytes(prior) -> int:

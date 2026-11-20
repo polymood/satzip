@@ -121,6 +121,42 @@ Main results:
   Two passes followed by online learning make the pixel stream 0.3 % to 5 % smaller.
   The weights (14 KB) pay for themselves only on large images.
 
+## Big models on an AMD GPU (ROCm)
+
+Notebook 07 makes the predictor much larger: wider layers (`hidden`), residual blocks (`blocks`)
+and a wider input window (`context`). It can start from an offline prior trained on other Sentinel-2 tiles.
+
+1. Install the ROCm build of PyTorch in a separate environment, `.venv-rocm`.
+   The script downloads several GB. It ends with a check that PyTorch sees the GPU.
+
+   ```sh
+   scripts/setup_rocm.sh                  # ROCm 10.0
+   ROCM=7.14 scripts/setup_rocm.sh        # alternative, if the driver does not support ROCm 10.0
+   ```
+
+2. Get the data, including the two large samples (`S2 Toulouse 2048`, `LST chunk 1000`).
+
+   ```sh
+   .venv-rocm/bin/python scripts/download_data.py
+   ```
+
+3. Open the notebook with the ROCm environment. Do not use `uv run`, because it installs the CPU build again.
+
+   ```sh
+   .venv-rocm/bin/marimo edit notebooks/07_big_models.py
+   ```
+
+4. Select the samples and model sizes. The plan table shows the memory and the estimated time of each model size
+   before you start. Press the run button. Each finished run stays in `reports/07_big_models/results-cuda.json`,
+   so you can stop and continue later.
+
+Notes:
+
+- Large models need much data. Use the large samples to give them a fair test.
+- The encoder and the decoder must run on the same GPU model with the same driver and PyTorch version.
+  The codec selects deterministic GPU algorithms. Every run is decoded and compared with the input.
+- On the CPU, a preview with 72 000 to 320 000 parameters gave −1.6 % on Sentinel-3 OLCI and −0.15 % on Sentinel-2.
+
 ## Limits
 
 The codec requires matching floating-point computations on both sides. Use the same CPU type and PyTorch version for encoding and decoding. The input grids must contain integers.

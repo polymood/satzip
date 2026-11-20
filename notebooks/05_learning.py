@@ -57,8 +57,8 @@ def single_changes(sample, bands):
 
 @app.cell
 def _():
-    _bands = {s: len(lab.load(s)[0]) for s in lab.SAMPLES}
-    configs = [c for s in lab.SAMPLES for c in single_changes(s, _bands[s])]
+    _bands = {s: len(lab.load(s)[0]) for s in lab.SMALL}
+    configs = [c for s in lab.SMALL for c in single_changes(s, _bands[s])]
     run = mo.ui.run_button(label=f"Compute missing results ({len(configs)} configurations, all cores)")
     mo.vstack([mo.md(f"Cache: `{CACHE.relative_to(lab.ROOT)}` "
                      f"({'found' if CACHE.exists() else 'not found, press the button'})"), run])
@@ -87,7 +87,7 @@ def _(configs, run):
 
 @app.cell
 def _(table):
-    _samples = list(lab.SAMPLES)
+    _samples = list(lab.SMALL)
     _changes = list(dict.fromkeys(t["change"] for t in table if t["change"] != "SZ2 default"))
     _y = np.arange(len(_changes))
     learn_fig, _axs = plt.subplots(1, len(_samples), figsize=(3.3 * len(_samples), 0.32 * len(_changes) + 1.6),
@@ -136,7 +136,7 @@ def _(combined):
             cfg.pop("order", None)
         return cfg
 
-    combo_configs = [_fit(s) for s in lab.SAMPLES]
+    combo_configs = [_fit(s) for s in lab.SMALL]
     run_combo = mo.ui.run_button(label="Measure the combination")
     mo.vstack([mo.md("## Combine the best changes\n\n" + "\n".join(f"- {c['sample']}: `{label(c)}`"
                                                                      for c in combo_configs)), run_combo])

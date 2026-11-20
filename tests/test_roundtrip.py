@@ -124,7 +124,8 @@ def test_sz3_options_roundtrip():
     img = sample_image(4).astype(np.int16)
     img[:, 3:9, 5:12] = -32768
     assert satzip.compress(img)[0][:3] == b"SZ2"  # default settings keep the SZ2 format
-    for opts in ({"train_every": 4}, {"steps": 2}, {"n_prev": 1}, {"n_prev": 3, "train_every": 3, "steps": 2}):
+    for opts in ({"train_every": 4}, {"steps": 2}, {"n_prev": 1}, {"n_prev": 3, "train_every": 3, "steps": 2},
+                 {"blocks": 2, "hidden": 32, "context": 3}, {"context": 8, "steps": 0}):
         data, _ = satzip.compress(img, fill=-32768, **opts)
         assert data[:3] == b"SZ3", opts
         assert np.array_equal(satzip.decompress(data), img), opts

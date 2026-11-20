@@ -1,0 +1,298 @@
+[
+ {
+  "config": {
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "bytes": 1156784,
+   "side bytes": 0,
+   "bpp": 8.8255615234375,
+   "t_enc": 9.036361821003084,
+   "t_dec": 8.550419111998053,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "bytes": 1194265,
+   "side bytes": 0,
+   "bpp": 6.0743459065755205,
+   "t_enc": 13.680163402001199,
+   "t_dec": 12.761499091000587,
+   "pixels": 1572864,
+   "params": 7170,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "hidden": 128,
+   "blocks": 2,
+   "context": 0,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "context": 0,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu",
+   "bytes": 1155003,
+   "side bytes": 0,
+   "bpp": 8.811973571777344,
+   "t_enc": 20.611692905000382,
+   "t_dec": 19.494399488001363,
+   "pixels": 1048576,
+   "params": 72578,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "hidden": 128,
+   "blocks": 2,
+   "context": 4,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "context": 4,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu",
+   "bytes": 1158569,
+   "side bytes": 0,
+   "bpp": 8.839179992675781,
+   "t_enc": 27.218756815000233,
+   "t_dec": 25.998809604003327,
+   "pixels": 1048576,
+   "params": 94338,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "hidden": 128,
+   "blocks": 2,
+   "context": 0,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "context": 0,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu",
+   "bytes": 1174880,
+   "side bytes": 0,
+   "bpp": 5.975748697916667,
+   "t_enc": 30.099287838998862,
+   "t_dec": 27.590694605001772,
+   "pixels": 1572864,
+   "params": 72578,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "hidden": 128,
+   "blocks": 2,
+   "context": 4,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "context": 4,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu",
+   "bytes": 1185854,
+   "side bytes": 0,
+   "bpp": 6.031565348307292,
+   "t_enc": 41.68598877200202,
+   "t_dec": 37.24477129900333,
+   "pixels": 1572864,
+   "params": 94338,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "hidden": 256,
+   "blocks": 2,
+   "context": 0,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 256,
+   "blocks": 2,
+   "context": 0,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu",
+   "bytes": 1155263,
+   "side bytes": 0,
+   "bpp": 8.813957214355469,
+   "t_enc": 41.87454616799732,
+   "t_dec": 37.336685483998735,
+   "pixels": 1048576,
+   "params": 276226,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "hidden": 256,
+   "blocks": 2,
+   "context": 4,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 256,
+   "blocks": 2,
+   "context": 4,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu",
+   "bytes": 1158789,
+   "side bytes": 0,
+   "bpp": 8.840858459472656,
+   "t_enc": 51.05423119400075,
+   "t_dec": 43.662202266998065,
+   "pixels": 1048576,
+   "params": 319746,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "hidden": 256,
+   "blocks": 2,
+   "context": 0,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 256,
+   "blocks": 2,
+   "context": 0,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu",
+   "bytes": 1176896,
+   "side bytes": 0,
+   "bpp": 5.986002604166667,
+   "t_enc": 60.322174154000095,
+   "t_dec": 50.39001074200132,
+   "pixels": 1572864,
+   "params": 276226,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "hidden": 256,
+   "blocks": 2,
+   "context": 4,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 256,
+   "blocks": 2,
+   "context": 4,
+   "lr": 0.001,
+   "train_every": 1,
+   "device": "cpu",
+   "bytes": 1183050,
+   "side bytes": 0,
+   "bpp": 6.017303466796875,
+   "t_enc": 73.85764503099927,
+   "t_dec": 59.84226864299853,
+   "pixels": 1572864,
+   "params": 319746,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ }
+]

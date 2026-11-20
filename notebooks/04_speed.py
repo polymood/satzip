@@ -49,7 +49,7 @@ def _():
     TRAIN_EVERY = [1, 2, 4, 8, 16, 32]
     HIDDEN = [16, 32, 64]
     configs = [{"sample": s, "train_every": k, "hidden": h}
-               for s in lab.SAMPLES for h in HIDDEN for k in TRAIN_EVERY]
+               for s in lab.SMALL for h in HIDDEN for k in TRAIN_EVERY]
     run = mo.ui.run_button(label=f"Compute missing results ({len(configs)} configurations, all cores)")
     mo.vstack([mo.md(f"Cache: `{CACHE.relative_to(lab.ROOT)}` "
                      f"({'found' if CACHE.exists() else 'not found, press the button'})"), run])
@@ -80,7 +80,7 @@ def _(rows):
 
 @app.cell
 def _(HIDDEN, rows, ref):
-    _samples = list(lab.SAMPLES)
+    _samples = list(lab.SMALL)
     speed_fig, _axs = plt.subplots(1, len(_samples), figsize=(4 * len(_samples), 3.6), sharey=True,
                                    layout="constrained")
     for _ax, _s in zip(_axs, _samples):

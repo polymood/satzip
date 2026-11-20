@@ -22,6 +22,7 @@ S2 = ["B02", "B03", "B04", "B08"]
 
 SENTINEL = [  # same arguments as notebooks/01_copernicus.py, so the cache names match
     ("sentinel-2-l2a", 1.44, 43.60, S2, 512, SUMMER, CLEAR),  # Toulouse
+    ("sentinel-2-l2a", 1.44, 43.60, S2, 2048, SUMMER, CLEAR),  # Toulouse, large sample for big models
     ("sentinel-2-l2a", 1.60, 48.25, S2, 512, SUMMER, CLEAR),  # Beauce farmland
     ("sentinel-2-l2a", 2.35, 48.85, S2, 512, SUMMER, CLEAR),  # Paris (prior training)
     ("sentinel-2-l2a", 4.83, 45.76, S2, 512, SUMMER, CLEAR),  # Lyon (prior training)
