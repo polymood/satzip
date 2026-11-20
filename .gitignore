@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Downloaded data and benchmark caches
+data/
+
+# marimo session caches
+__marimo__/
+.pytest_cache/

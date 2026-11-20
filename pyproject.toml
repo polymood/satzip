@@ -1,0 +1,37 @@
+[project]
+name = "satzip"
+version = "0.1.0"
+description = "Lossless satellite image compression with an online-learned neural predictor and arithmetic coding"
+readme = "README.md"
+authors = [
+    { name = "polymood" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "constriction>=0.5.0",
+    "h5py>=3.16.0",
+    "imagecodecs>=2026.11.11",
+    "marimo>=0.25.2",
+    "matplotlib>=3.11.2",
+    "netcdf4>=1.7.5.1.post1",
+    "numpy>=2.5.5",
+    "rasterio>=1.5.2",
+    "torch>=2.15.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.13.6,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]
