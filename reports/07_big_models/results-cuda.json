@@ -1,0 +1,177 @@
+[
+ {
+  "config": {
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "bytes": 1157132,
+   "side bytes": 0,
+   "bpp": 8.828216552734375,
+   "t_enc": 9.405448171999979,
+   "t_dec": 8.686229855999954,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": "",
+   "prior": null
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "hidden": 512,
+   "blocks": 4,
+   "context": 0,
+   "lr": 0.001,
+   "train_every": 4,
+   "device": "cuda"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "context": 0,
+   "lr": 0.001,
+   "train_every": 4,
+   "device": "cuda",
+   "bytes": 1158403,
+   "side bytes": 0,
+   "bpp": 8.837913513183594,
+   "t_enc": 13.785096195999927,
+   "t_dec": 13.124736598000027,
+   "pixels": 1048576,
+   "params": 2129410,
+   "prior bytes": 0,
+   "peak VRAM MB": 141.78662109375,
+   "gpu": "AMD Radeon Graphics",
+   "prior": null
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "hidden": 512,
+   "blocks": 4,
+   "context": 0,
+   "lr": 0.0003,
+   "train_every": 1,
+   "device": "cuda"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "context": 0,
+   "lr": 0.0003,
+   "train_every": 1,
+   "device": "cuda",
+   "bytes": 1154689,
+   "side bytes": 0,
+   "bpp": 8.809577941894531,
+   "t_enc": 28.88914726099995,
+   "t_dec": 26.36601150299998,
+   "pixels": 1048576,
+   "params": 2129410,
+   "prior bytes": 0,
+   "peak VRAM MB": 105.6005859375,
+   "gpu": "AMD Radeon Graphics",
+   "prior": null
+  }
+ },
+ {
+  "config": {
+   "sample": "S2 Toulouse",
+   "hidden": 512,
+   "blocks": 4,
+   "context": 0,
+   "lr": 0.0003,
+   "train_every": 1,
+   "device": "cuda",
+   "prior": "S2 Paris+Lyon+Nantes"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "context": 0,
+   "lr": 0.0003,
+   "train_every": 1,
+   "device": "cuda",
+   "bytes": 1147033,
+   "side bytes": 0,
+   "bpp": 8.751167297363281,
+   "t_enc": 26.140717226999868,
+   "t_dec": 25.7140376509999,
+   "pixels": 1048576,
+   "params": 2129410,
+   "prior bytes": 4258820,
+   "peak VRAM MB": 105.6005859375,
+   "gpu": "AMD Radeon Graphics",
+   "prior": "S2 Paris+Lyon+Nantes"
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "bytes": 1197513,
+   "side bytes": 0,
+   "bpp": 6.0908660888671875,
+   "t_enc": 14.010883301999911,
+   "t_dec": 12.98287934300015,
+   "pixels": 1572864,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "sample": "S3 OLCI Biscay",
+   "hidden": 512,
+   "blocks": 4,
+   "context": 0,
+   "lr": 0.0003,
+   "train_every": 1,
+   "device": "cuda"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "context": 0,
+   "lr": 0.0003,
+   "train_every": 1,
+   "device": "cuda",
+   "bytes": 1180450,
+   "side bytes": 0,
+   "bpp": 6.004079182942708,
+   "t_enc": 38.43047695699988,
+   "t_dec": 37.74615540400009,
+   "pixels": 1572864,
+   "params": 2129410,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 105.6005859375,
+   "gpu": "AMD Radeon Graphics"
+  }
+ }
+]

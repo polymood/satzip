@@ -1,0 +1,866 @@
+[
+ {
+  "config": {
+   "steps": 4,
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 4,
+   "bytes": 401661,
+   "side bytes": 0,
+   "bpp": 6.1288604736328125,
+   "t_enc": 27.53262132800046,
+   "t_dec": 25.52244453200001,
+   "pixels": 524288,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 2,
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 2,
+   "bytes": 401838,
+   "side bytes": 0,
+   "bpp": 6.131561279296875,
+   "t_enc": 33.07723283699943,
+   "t_dec": 34.87881432299946,
+   "pixels": 524288,
+   "params": 72578,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 8,
+   "order": "natural",
+   "bytes": 412991,
+   "side bytes": 14340,
+   "bpp": 6.3017425537109375,
+   "t_enc": 75.11319029700007,
+   "t_dec": 8.896659527999873,
+   "pixels": 524288,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "steps": 8,
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 8,
+   "bytes": 401965,
+   "side bytes": 0,
+   "bpp": 6.1334991455078125,
+   "t_enc": 49.843391295999936,
+   "t_dec": 49.068379225999706,
+   "pixels": 524288,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "steps": 4,
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 4,
+   "bytes": 1159530,
+   "side bytes": 0,
+   "bpp": 8.846511840820312,
+   "t_enc": 54.268409639999845,
+   "t_dec": 53.949476183000115,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "steps": 4,
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 4,
+   "bytes": 826951,
+   "side bytes": 0,
+   "bpp": 6.309135437011719,
+   "t_enc": 55.09691476500029,
+   "t_dec": 55.16272708699944,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 4,
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 4,
+   "bytes": 402378,
+   "side bytes": 0,
+   "bpp": 6.139801025390625,
+   "t_enc": 58.10979225400024,
+   "t_dec": 57.90928478300066,
+   "pixels": 524288,
+   "params": 72578,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 2,
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 2,
+   "bytes": 1159639,
+   "side bytes": 0,
+   "bpp": 8.847343444824219,
+   "t_enc": 66.73729904399988,
+   "t_dec": 66.56475291999959,
+   "pixels": 1048576,
+   "params": 72578,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 2,
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 2,
+   "bytes": 827744,
+   "side bytes": 0,
+   "bpp": 6.315185546875,
+   "t_enc": 67.43018005999966,
+   "t_dec": 68.79181040899948,
+   "pixels": 1048576,
+   "params": 72578,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "steps": 4,
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 4,
+   "bytes": 1174595,
+   "side bytes": 0,
+   "bpp": 5.9742991129557295,
+   "t_enc": 81.75859408799988,
+   "t_dec": 81.2036409250004,
+   "pixels": 1572864,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 8,
+   "order": "natural",
+   "bytes": 1163556,
+   "side bytes": 14340,
+   "bpp": 8.877227783203125,
+   "t_enc": 160.15548982499968,
+   "t_dec": 19.241247812999973,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 8,
+   "order": "natural",
+   "bytes": 833357,
+   "side bytes": 14340,
+   "bpp": 6.358009338378906,
+   "t_enc": 161.587542708,
+   "t_dec": 21.165677900000446,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "steps": 8,
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 8,
+   "bytes": 829519,
+   "side bytes": 0,
+   "bpp": 6.328727722167969,
+   "t_enc": 98.18484607099981,
+   "t_dec": 99.97049898000023,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "steps": 8,
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 8,
+   "bytes": 1162182,
+   "side bytes": 0,
+   "bpp": 8.866744995117188,
+   "t_enc": 98.7183648629998,
+   "t_dec": 100.51903534299981,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 2,
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 2,
+   "bytes": 1180192,
+   "side bytes": 0,
+   "bpp": 6.002766927083333,
+   "t_enc": 99.23378613000023,
+   "t_dec": 100.32653927499996,
+   "pixels": 1572864,
+   "params": 72578,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 16,
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 16,
+   "order": "natural",
+   "bytes": 412771,
+   "side bytes": 14340,
+   "bpp": 6.2983856201171875,
+   "t_enc": 141.29362528000001,
+   "t_dec": 8.93107230500027,
+   "pixels": 524288,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "steps": 2,
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 8,
+   "order": "natural",
+   "steps": 2,
+   "bytes": 413685,
+   "side bytes": 14340,
+   "bpp": 6.3123321533203125,
+   "t_enc": 83.36718628800008,
+   "t_dec": 17.38920740499998,
+   "pixels": 524288,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "hidden": 32,
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 8,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 403747,
+   "side bytes": 5124,
+   "bpp": 6.1606903076171875,
+   "t_enc": 70.83882543899927,
+   "t_dec": 7.936214523999297,
+   "pixels": 524288,
+   "params": 2562,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 4,
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 4,
+   "bytes": 829496,
+   "side bytes": 0,
+   "bpp": 6.32855224609375,
+   "t_enc": 117.93647507599962,
+   "t_dec": 109.36179744200035,
+   "pixels": 1048576,
+   "params": 72578,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 4,
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 4,
+   "bytes": 1160215,
+   "side bytes": 0,
+   "bpp": 8.851737976074219,
+   "t_enc": 117.3237482909999,
+   "t_dec": 118.42937746999996,
+   "pixels": 1048576,
+   "params": 72578,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 8,
+   "order": "natural",
+   "bytes": 1143309,
+   "side bytes": 14340,
+   "bpp": 5.8151702880859375,
+   "t_enc": 241.8832814489997,
+   "t_dec": 23.677792833999774,
+   "pixels": 1572864,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "steps": 2,
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 8,
+   "order": "natural",
+   "steps": 2,
+   "bytes": 1166370,
+   "side bytes": 14340,
+   "bpp": 8.898696899414062,
+   "t_enc": 166.1724880669999,
+   "t_dec": 21.31987308600037,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "steps": 8,
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "steps": 8,
+   "bytes": 1164659,
+   "side bytes": 0,
+   "bpp": 5.9237620035807295,
+   "t_enc": 145.72243320300004,
+   "t_dec": 128.54641436200018,
+   "pixels": 1572864,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "hidden": 32,
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 8,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 1156560,
+   "side bytes": 5124,
+   "bpp": 8.8238525390625,
+   "t_enc": 147.3817055469999,
+   "t_dec": 13.906905030000416,
+   "pixels": 1048576,
+   "params": 2562,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "steps": 2,
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 8,
+   "order": "natural",
+   "steps": 2,
+   "bytes": 834991,
+   "side bytes": 14340,
+   "bpp": 6.370475769042969,
+   "t_enc": 162.94394852300047,
+   "t_dec": 19.2006440819996,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "hidden": 32,
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 8,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 826837,
+   "side bytes": 5124,
+   "bpp": 6.308265686035156,
+   "t_enc": 140.80771215699951,
+   "t_dec": 10.532718524999837,
+   "pixels": 1048576,
+   "params": 2562,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 16,
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 16,
+   "order": "natural",
+   "bytes": 832565,
+   "side bytes": 14340,
+   "bpp": 6.351966857910156,
+   "t_enc": 281.45419814199977,
+   "t_dec": 10.859411129999899,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 16,
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 16,
+   "order": "natural",
+   "bytes": 1163316,
+   "side bytes": 14340,
+   "bpp": 8.875396728515625,
+   "t_enc": 287.9195577170003,
+   "t_dec": 10.678290183000172,
+   "pixels": 1048576,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 16,
+   "hidden": 32,
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 16,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 403531,
+   "side bytes": 5124,
+   "bpp": 6.1573944091796875,
+   "t_enc": 99.07073042200045,
+   "t_dec": 4.362597778000236,
+   "pixels": 524288,
+   "params": 2562,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 4,
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 128,
+   "blocks": 2,
+   "steps": 4,
+   "bytes": 1176048,
+   "side bytes": 0,
+   "bpp": 5.981689453125,
+   "t_enc": 159.7755771279999,
+   "t_dec": 142.85196148100022,
+   "pixels": 1572864,
+   "params": 72578,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "hidden": 32,
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 8,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 1137009,
+   "side bytes": 5124,
+   "bpp": 5.7831268310546875,
+   "t_enc": 165.4079929059999,
+   "t_dec": 13.812556732999838,
+   "pixels": 1572864,
+   "params": 2562,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 8,
+   "steps": 2,
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 8,
+   "order": "natural",
+   "steps": 2,
+   "bytes": 1151135,
+   "side bytes": 14340,
+   "bpp": 5.8549753824869795,
+   "t_enc": 207.88910339700033,
+   "t_dec": 24.087736876000235,
+   "pixels": 1572864,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 16,
+   "hidden": 32,
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 16,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 1155380,
+   "side bytes": 5124,
+   "bpp": 8.814849853515625,
+   "t_enc": 188.34477732200048,
+   "t_dec": 9.20184385199991,
+   "pixels": 1048576,
+   "params": 2562,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 16,
+   "hidden": 32,
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 16,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 826285,
+   "side bytes": 5124,
+   "bpp": 6.304054260253906,
+   "t_enc": 189.23851431100047,
+   "t_dec": 8.945478830999491,
+   "pixels": 1048576,
+   "params": 2562,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 16,
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 16,
+   "order": "natural",
+   "bytes": 1139321,
+   "side bytes": 14340,
+   "bpp": 5.7948862711588545,
+   "t_enc": 332.90384942499986,
+   "t_dec": 13.75576785999965,
+   "pixels": 1572864,
+   "params": 7170,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ },
+ {
+  "config": {
+   "two_pass": 16,
+   "hidden": 32,
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 16,
+   "order": "natural",
+   "hidden": 32,
+   "bytes": 1133685,
+   "side bytes": 5124,
+   "bpp": 5.7662200927734375,
+   "t_enc": 245.64070245900075,
+   "t_dec": 13.256510215999697,
+   "pixels": 1572864,
+   "params": 2562,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 0,
+   "gpu": ""
+  }
+ }
+]

@@ -1,0 +1,482 @@
+[
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 2,
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 2,
+   "bytes": 1154585,
+   "side bytes": 0,
+   "bpp": 8.808784484863281,
+   "t_enc": 116.91294769899923,
+   "t_dec": 100.44958820899956,
+   "pixels": 1048576,
+   "params": 2129410,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 121.599609375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 2,
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 2,
+   "bytes": 822406,
+   "side bytes": 0,
+   "bpp": 6.2744598388671875,
+   "t_enc": 73.05967174999932,
+   "t_dec": 55.72766129000047,
+   "pixels": 1048576,
+   "params": 2129410,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 121.599609375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 2,
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 2,
+   "bytes": 400744,
+   "side bytes": 0,
+   "bpp": 6.1148681640625,
+   "t_enc": 25.523902968000584,
+   "t_dec": 24.879741332000776,
+   "pixels": 524288,
+   "params": 2129410,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 121.599609375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 2,
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 2,
+   "bytes": 1168090,
+   "side bytes": 0,
+   "bpp": 5.941212972005208,
+   "t_enc": 74.80229028799931,
+   "t_dec": 72.77280622799935,
+   "pixels": 1572864,
+   "params": 2129410,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 121.599609375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 4,
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 4,
+   "bytes": 1155193,
+   "side bytes": 0,
+   "bpp": 8.813423156738281,
+   "t_enc": 91.01369110799988,
+   "t_dec": 88.87491159100045,
+   "pixels": 1048576,
+   "params": 2129410,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 121.599609375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 4,
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 4,
+   "bytes": 823050,
+   "side bytes": 0,
+   "bpp": 6.2793731689453125,
+   "t_enc": 87.79650109100021,
+   "t_dec": 86.64703633499994,
+   "pixels": 1048576,
+   "params": 2129410,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 121.599609375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 4,
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 4,
+   "bytes": 401104,
+   "side bytes": 0,
+   "bpp": 6.120361328125,
+   "t_enc": 42.76040532299976,
+   "t_dec": 43.36646128399934,
+   "pixels": 524288,
+   "params": 2129410,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 121.599609375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 4,
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "steps": 4,
+   "bytes": 1158150,
+   "side bytes": 0,
+   "bpp": 5.890655517578125,
+   "t_enc": 130.5435031369998,
+   "t_dec": 134.2926014450004,
+   "pixels": 1572864,
+   "params": 2129410,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 121.599609375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 1024,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 1024,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "bytes": 1154761,
+   "side bytes": 0,
+   "bpp": 8.810127258300781,
+   "t_enc": 43.997803461999865,
+   "t_dec": 43.23612667699945,
+   "pixels": 1048576,
+   "params": 8453122,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 227.08984375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 1024,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 1024,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "bytes": 823514,
+   "side bytes": 0,
+   "bpp": 6.2829132080078125,
+   "t_enc": 42.970120183999825,
+   "t_dec": 43.088870883999334,
+   "pixels": 1048576,
+   "params": 8453122,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 227.08984375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 1024,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 1024,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "bytes": 400812,
+   "side bytes": 0,
+   "bpp": 6.11590576171875,
+   "t_enc": 21.690522692999366,
+   "t_dec": 21.729423462999875,
+   "pixels": 524288,
+   "params": 8453122,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 227.08984375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 1024,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 1024,
+   "blocks": 4,
+   "lr": 0.0003,
+   "device": "cuda",
+   "bytes": 1181278,
+   "side bytes": 0,
+   "bpp": 6.008290608723958,
+   "t_enc": 64.9686178259999,
+   "t_dec": 66.56960956199964,
+   "pixels": 1572864,
+   "params": 8453122,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 227.08984375,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 8,
+   "lr": 0.0003,
+   "device": "cuda",
+   "sample": "S2 Toulouse"
+  },
+  "result": {
+   "sample": "S2 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 8,
+   "lr": 0.0003,
+   "device": "cuda",
+   "bytes": 1156513,
+   "side bytes": 0,
+   "bpp": 8.823493957519531,
+   "t_enc": 43.0625622790003,
+   "t_dec": 42.837809005000054,
+   "pixels": 1048576,
+   "params": 4234754,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 161.73046875,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 8,
+   "lr": 0.0003,
+   "device": "cuda",
+   "sample": "S2 Beauce"
+  },
+  "result": {
+   "sample": "S2 Beauce",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 8,
+   "lr": 0.0003,
+   "device": "cuda",
+   "bytes": 826254,
+   "side bytes": 0,
+   "bpp": 6.3038177490234375,
+   "t_enc": 43.12830122500054,
+   "t_dec": 42.54236810200018,
+   "pixels": 1048576,
+   "params": 4234754,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 161.73046875,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 8,
+   "lr": 0.0003,
+   "device": "cuda",
+   "sample": "S1 Toulouse"
+  },
+  "result": {
+   "sample": "S1 Toulouse",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 8,
+   "lr": 0.0003,
+   "device": "cuda",
+   "bytes": 401180,
+   "side bytes": 0,
+   "bpp": 6.12152099609375,
+   "t_enc": 20.50630906799961,
+   "t_dec": 20.501754713000082,
+   "pixels": 524288,
+   "params": 4234754,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 161.73046875,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ },
+ {
+  "config": {
+   "hidden": 512,
+   "blocks": 8,
+   "lr": 0.0003,
+   "device": "cuda",
+   "sample": "S3 OLCI Biscay"
+  },
+  "result": {
+   "sample": "S3 OLCI Biscay",
+   "two_pass": 0,
+   "order": "natural",
+   "hidden": 512,
+   "blocks": 8,
+   "lr": 0.0003,
+   "device": "cuda",
+   "bytes": 1183814,
+   "side bytes": 0,
+   "bpp": 6.021189371744792,
+   "t_enc": 62.491777788000036,
+   "t_dec": 65.46895857600066,
+   "pixels": 1572864,
+   "params": 4234754,
+   "prior": null,
+   "prior bytes": 0,
+   "peak VRAM MB": 161.73046875,
+   "gpu": "AMD Radeon RX 7800 XT"
+  }
+ }
+]

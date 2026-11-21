@@ -2,6 +2,10 @@
 
 satzip is an experimental lossless compressor for integer satellite image stacks. It uses the online learning idea from [tufazip](https://github.com/Tufalabs/tufazip). Encoder and decoder train the same small neural network after each wavefront of pixels. Each band can use two earlier bands as side information.
 
+## Satellite imagery results
+
+Across eight Sentinel windows, satzip reduced **47,185,920 raw bytes to 23,431,616 bytes** (2.014×) with online learning. On three held-out Sentinel-2 windows, a model pretrained on Paris, Lyon and Nantes reduced **37,748,736 raw bytes to 19,072,071 bytes** (1.979×), excluding shared weights. [Satellite images, compression plots and per-tile measurements](reports/tile_comparison/README.md)
+
 ## Neuralink electrode recordings
 
 The audio codec compressed 149 held-out mono PCM recordings from 29,437,490 to 8,529,117 bytes (3.451×) using a shared decoder checkpoint. Every reconstructed WAV matched the original byte for byte. [Figures, measurements, weights and reproduction commands](reports/neuralink/README.md)
@@ -160,6 +164,35 @@ Notes:
 - The encoder and the decoder must run on the same GPU model with the same driver and PyTorch version.
   The codec selects deterministic GPU algorithms. Every run is decoded and compared with the input.
 - On the CPU, a preview with 72 000 to 320 000 parameters gave −1.6 % on Sentinel-3 OLCI and −0.15 % on Sentinel-2.
+
+### Radeon RX 7800 XT measurements
+
+The four-band Sentinel-2 Toulouse tile contains 1,048,576 integer samples.
+Each run below decoded every sample exactly. The Radeon ran prediction and online
+training, and the CPU built the spatial features and performed range coding.
+These measurements used PyTorch 2.14.1 with ROCm 7.2.
+
+| Predictor | Parameters | Stream bytes | Encode | Decode |
+|---|---:|---:|---:|---:|
+| CPU SZ2 | 7,170 | 1,157,132 | 9.4 s | 8.7 s |
+| Radeon, trained online | 2,129,410 | 1,154,689 | 28.9 s | 26.4 s |
+| Radeon, pretrained on Paris, Lyon and Nantes, then trained online | 2,129,410 | 1,147,033 | 26.1 s | 25.7 s |
+
+The pretrained row assumes the decoder already has the weights. Sending them once
+adds 4,258,820 bytes in float16 before serialization overhead. The encode time
+excludes offline training. To run the online model on a downloaded tile:
+
+```python
+import satzip
+from satzip import lab
+
+img, fill = lab.load("S2 Toulouse")
+data, _ = satzip.compress(img, fill=fill, device="cuda", hidden=512, blocks=4, lr=0.0003)
+restored = satzip.decompress(data)
+```
+
+PyTorch uses the device name `cuda` for ROCm. Notebook 07 opens with these
+model settings on a GPU. Select the Sentinel-2 prior to reproduce the pretrained configuration.
 
 ## Limits
 

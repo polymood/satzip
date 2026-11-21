@@ -91,6 +91,12 @@ def test_roundtrip_prior_and_constant_band():
     data, _ = satzip.compress(img, prior=prior)
     assert np.array_equal(satzip.decompress(data, prior=prior), img)
 
+    opts = {"hidden": 32, "blocks": 2, "context": 2}
+    tile = img[:, :10, :9]
+    prior = satzip.pretrain([tile], **opts)
+    data, _ = satzip.compress(tile, prior=prior, **opts)
+    assert np.array_equal(satzip.decompress(data, prior=prior), tile)
+
 
 @app.function
 def test_wavefronts_cover_each_pixel_once_after_its_neighbours():

@@ -7,6 +7,7 @@ plus any side information that the decoder needs and that the stream does not ho
 
 import hashlib
 import json
+import multiprocessing
 import os
 import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -115,11 +116,10 @@ def measure(sample, *, two_pass=0, order="natural", prior=None, prior_epochs=1, 
         extra += sum(v.numel() * 2 for v in weights.values())
     elif weights:
         weights = {k: v.half().float() for k, v in weights.items()}
-    prior = weights
-    data, _ = satzip.compress(img, prior=prior, fill=fill, **codec)
+    data, _ = satzip.compress(img, prior=weights, fill=fill, **codec)
     t_enc = time.perf_counter() - t0
     t0 = time.perf_counter()
-    if not np.array_equal(satzip.decompress(data, prior=prior), img):
+    if not np.array_equal(satzip.decompress(data, prior=weights), img):
         raise AssertionError(f"round trip failed: {sample} {codec}")
     t_dec = time.perf_counter() - t0
     size = len(data) + extra
@@ -128,7 +128,7 @@ def measure(sample, *, two_pass=0, order="natural", prior=None, prior_epochs=1, 
                                                             if k in satzip.DEFAULTS}).state_dict().values())
     return {"sample": sample, "two_pass": two_pass, "order": order, **codec, "bytes": size,
             "side bytes": extra, "bpp": 8 * size / img.size, "t_enc": t_enc, "t_dec": t_dec,
-            "pixels": img.size, "params": params, "prior bytes": prior_bytes,
+            "pixels": img.size, "params": params, "prior": prior, "prior bytes": prior_bytes,
             "peak VRAM MB": torch.cuda.max_memory_allocated() / 2**20 if gpu else 0,
             "gpu": torch.cuda.get_device_name() if gpu else ""}
 
@@ -160,7 +160,9 @@ def grid(configs, cache, workers=None, progress=None):
         cache.parent.mkdir(parents=True, exist_ok=True)
         on_gpu = any(c.get("device", "cpu") != "cpu" for c in todo)
         workers = workers or (1 if on_gpu else os.cpu_count())  # one GPU job at a time by default
-        with ProcessPoolExecutor(min(workers, len(todo))) as ex:
+        # Notebook probes may have initialized HIP already. GPU workers need a fresh runtime.
+        ctx = multiprocessing.get_context("spawn") if on_gpu else None
+        with ProcessPoolExecutor(min(workers, len(todo)), mp_context=ctx) as ex:
             futures = {ex.submit(_run, c): c for c in todo}
             for n, f in enumerate(as_completed(futures), 1):
                 done[_key(futures[f])] = {"config": futures[f], "result": f.result()}

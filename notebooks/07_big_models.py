@@ -63,8 +63,8 @@ def _():
 def _():
     _gpu = torch.cuda.is_available()
     _devices = ["cuda", "cpu"] if _gpu else ["cpu"]
-    # Defaults: large sizes on a GPU, a small preview on the CPU.
-    _hidden, _blocks = (["512", "1024", "2048"], ["4", "8"]) if _gpu else (["128", "256"], ["2"])
+    # Start with one measured Radeon configuration or a smaller CPU preview.
+    _hidden, _blocks = (["512"], ["4"]) if _gpu else (["128", "256"], ["2"])
     form = mo.md("""
     ## Settings
 
@@ -75,11 +75,11 @@ def _():
     {lr} {train_every} {prior}
     """).batch(
         device=mo.ui.dropdown(_devices, value=_devices[0], label="Device"),
-        samples=mo.ui.multiselect(list(lab.SAMPLES), value=["S2 Toulouse", "S3 OLCI Biscay"], label="Samples"),
+        samples=mo.ui.multiselect(list(lab.SAMPLES), value=["S2 Toulouse"] if _gpu else ["S2 Toulouse", "S3 OLCI Biscay"], label="Samples"),
         hidden=mo.ui.multiselect(["64", "128", "256", "512", "1024", "2048", "4096"], value=_hidden, label="hidden"),
         blocks=mo.ui.multiselect(["0", "1", "2", "4", "8", "16"], value=_blocks, label="blocks"),
-        context=mo.ui.multiselect(["0", "2", "4", "6", "8"], value=["0", "4"], label="context"),
-        lr=mo.ui.multiselect(["0.003", "0.001", "0.0003", "0.0001"], value=["0.001"], label="learning rate"),
+        context=mo.ui.multiselect(["0", "2", "4", "6", "8"], value=["0"] if _gpu else ["0", "4"], label="context"),
+        lr=mo.ui.multiselect(["0.003", "0.001", "0.0003", "0.0001"], value=["0.0003"] if _gpu else ["0.001"], label="learning rate"),
         train_every=mo.ui.multiselect(["1", "2", "4", "8"], value=["1"], label="train_every"),
         prior=mo.ui.multiselect(["none", *lab.PRIORS], value=["none"], label="offline prior (Sentinel-2 samples only)"),
     )

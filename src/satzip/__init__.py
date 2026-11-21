@@ -326,7 +326,7 @@ BAND = "<3qf"  # min, max, mean, std
 
 def _version(prior, version):
     if version is None:
-        return 1 if prior is not None and prior["0.weight"].shape[1] == N_IN else 2
+        return 1 if prior is not None and "0.weight" in prior and prior["0.weight"].shape[1] == N_IN else 2
     if version not in (1, 2):
         raise ValueError("supported satzip versions are 1 and 2")
     return version
