@@ -2,6 +2,10 @@
 
 satzip is an experimental lossless compressor for integer satellite image stacks. It uses the online learning idea from [tufazip](https://github.com/Tufalabs/tufazip). Encoder and decoder train the same small neural network after each wavefront of pixels. Each band can use two earlier bands as side information.
 
+## Neuralink electrode recordings
+
+The audio codec compressed 149 held-out mono PCM recordings from 29,437,490 to 8,529,117 bytes (3.451×) using a shared decoder checkpoint. Every reconstructed WAV matched the original byte for byte. [Figures, measurements, weights and reproduction commands](reports/neuralink/README.md)
+
 ## How SZ2 works
 
 1. For a band with gaps between observed integer levels, the encoder estimates the bits those gaps cost. When the estimated saving covers the compressed lookup table and a small margin, it codes each level by its rank. The stream carries the table. Wide integer coordinates also use this mapping to keep the predictor inputs small.
