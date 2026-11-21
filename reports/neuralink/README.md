@@ -2,6 +2,8 @@
 
 A single pretrained decoder compressed **149 held-out WAV files from 29,437,490 to 8,529,117 bytes (3.451×)**. The benchmark decoded each stream and checked the complete WAV byte for byte. Each file uses the same 10,795,953-byte checkpoint. The per-file score counts every stream byte and assumes the decoder already has that checkpoint.
 
+A follow-up report compares these streams with the Sac lossless audio coder on the same files and derives information-theoretic bounds for the recordings: [How far can the recordings be compressed?](../neuralink_limits/README.md)
+
 ## Held-out stream measurements
 
 | Method | Total stream bytes | WAV bytes / stream bytes | Stream bits / PCM sample |
